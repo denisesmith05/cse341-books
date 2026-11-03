@@ -11,13 +11,13 @@ const startServer = async () => {
         await connectToDb();
         const books = await getDb().collection('books').find({}).toArray();
         console.log('Book documents:', books);
-        
+
         app.listen(PORT, () => {
             console.log(`Server listening on port 127.0.0.1:${PORT}`);
         });
     } 
     catch (error) {
-        console.error('Database connection failed:', error);
+        console.error('Database connection failed:', error.message);
         process.exit(1);
     }
 };
