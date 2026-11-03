@@ -1,5 +1,6 @@
 import app from './app.js';
-import { connectToDb }  from './src/db/connect.js';
+import { connectToDb } from './src/db/connect.js';
+import getDb from './src/db/connect.js';
 
 const PORT = process.env.PORT;
 
@@ -13,10 +14,13 @@ const startServer = async () => {
         app.listen(PORT, () => {
             console.log(`Server listening on port 127.0.0.1:${PORT}`);
         });
-    } catch (error) {
+    } 
+    catch (error) {
         console.error('Database connection failed:', error);
         process.exit(1);
     }
+    const books = await getDb().collection('books').find({}).toArray();
+    console.log('Book documents:', books);
 };
 
 await startServer();
